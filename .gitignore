@@ -1,0 +1,6 @@
+/bin
+/build
+/doc
+/.idea
+/.vscode
+graphs.out
