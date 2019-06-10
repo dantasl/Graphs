@@ -18,16 +18,19 @@ Vertex::Vertex(){/* empty */}
 
 Vertex::Vertex(int identifier)
     : identifier{identifier}
+    , degree{0}
     , adjacent_vertices{std::vector<Vertex>()}
     {/* empty */}
 
 void Vertex::add_adjacent_vertex (Vertex &vertex)
 {
-    // Adding the new vertex to the list of adjacent vertices
+    // Adding the vertices to the adjacent list
     this->adjacent_vertices.push_back(vertex);
+    vertex.adjacent_vertices.push_back(*this);
 
-    // Incrementing this vertex's degree.
+    // Incrementing the vertices degree
     this->degree++;
+    vertex.degree++;
 }
 
 void Vertex::remove_adjacent_vertex (int identifier)
