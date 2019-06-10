@@ -23,7 +23,10 @@ namespace graphs
             // [1] Attributes
                 
                 int identifier;                       
-                int degree;  
+                int degree{0};
+                int saturation_degree{0};
+                int vertex_color{-1};
+                bool colored{false};
                 std::vector<Vertex> adjacent_vertices;
 
             // [2] Methods
@@ -81,6 +84,9 @@ namespace graphs
                 {
                     this->identifier = other.identifier;
                     this->degree = other.degree;
+                    this->saturation_degree = other.saturation_degree;
+                    this->vertex_color = other.vertex_color;
+                    this->colored = other.colored;
                     this->adjacent_vertices = other.adjacent_vertices;
                     return *this;
                 }
@@ -110,6 +116,12 @@ namespace graphs
                 {
                     return !(*this == other);
                 }
+
+                /**
+                 * @brief           Given a certain vertex, increments the saturation
+                 *                  degree of its neighbors.
+                 */
+                void update_neighbors_saturation_degree();
     };
 }
 

@@ -10,14 +10,14 @@
  * 
  */
 
-#include "../include/Graph.h"
+#include "../include/DSATUR.hpp"
 
 using namespace graphs;
 
 int main()
 {
     // [1] Creating dummy vertices and edges
-    
+    Vertex *v = new Vertex(1);
     Vertex v1(1);
     Vertex v2(2);
     Vertex v3(3);
@@ -54,11 +54,17 @@ int main()
 
     Graph graph(edges, vertices);
 
-    // [5] Tests session
+    // [5] Invoking the DSATUR algorithm
 
-    // Finding maximum degree and changing it.
-    auto max_degree = graph.find_maximum_degree();
-    max_degree->identifier = 6;
-    auto max_degree_reforged = graph.find_maximum_degree();
-    std::cout << max_degree_reforged->identifier << std::endl;
+    graph = DSATUR(graph);
+
+    //auto n_graph = DSATUR(graph);
+
+    // [6] Tests session
+
+    // Printing saturation degree of all vertices.
+    for (auto it = graph.vertices.begin(); it != graph.vertices.end(); ++it)
+    {
+        std::cout << it->identifier << " " << it->saturation_degree << std::endl;
+    }
 }

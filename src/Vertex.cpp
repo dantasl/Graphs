@@ -18,7 +18,6 @@ Vertex::Vertex(){/* empty */}
 
 Vertex::Vertex(int identifier)
     : identifier{identifier}
-    , degree{0}
     , adjacent_vertices{std::vector<Vertex>()}
     {/* empty */}
 
@@ -58,4 +57,11 @@ bool Vertex::is_adjacent (Vertex &vertex)
         if (*v == vertex) return true;
     
     return false;
+}
+
+void Vertex::update_neighbors_saturation_degree()
+{
+    // Iterates over the neighbors of given vertex and update their saturation degree
+    for (auto it = this->adjacent_vertices.begin(); it != this->adjacent_vertices.end(); ++it)
+        it->saturation_degree++;
 }
