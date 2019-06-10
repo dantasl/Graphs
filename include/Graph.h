@@ -24,8 +24,8 @@ namespace graphs
         public:
             // [1] Attributes
 
-            std::vector<Edge> edges;
-            std::vector<Vertex> vertices;
+            std::vector<Edge*> edges;
+            std::vector<Vertex*> vertices;
 
             // [2] Methods
 
@@ -35,7 +35,7 @@ namespace graphs
              * @param edges     Vector of edges of this graph
              * @param vertices  Vector of verticies of this graph
              */
-            Graph(std::vector<Edge> &edges, std::vector<Vertex> &vertices);
+            Graph(std::vector<Edge*> edges, std::vector<Vertex*> vertices);
 
             /**
              * @brief           Finds the vertex with the maximum degree.

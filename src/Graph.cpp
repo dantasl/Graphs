@@ -14,7 +14,7 @@
 
 using namespace graphs;
 
-Graph::Graph(std::vector<Edge> &edges, std::vector<Vertex> &vertices)
+Graph::Graph(std::vector<Edge*> edges, std::vector<Vertex*> vertices)
     : edges{edges}
     , vertices{vertices}
 {/* empty */}
@@ -26,7 +26,7 @@ Vertex* Graph::find_maximum_degree()
 
     // Iterates over the vector of vertices comparing the degrees
     for (auto it = this->vertices.begin(); it != this->vertices.end(); ++it)
-        if (it->degree > aux->degree) aux = it;
+        if ((*it)->degree > (*aux)->degree) aux = it;
     
-    return &(*aux);
+    return *aux;
 }

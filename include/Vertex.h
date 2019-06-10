@@ -27,7 +27,7 @@ namespace graphs
                 int saturation_degree{0};
                 int vertex_color{-1};
                 bool colored{false};
-                std::vector<Vertex> adjacent_vertices;
+                std::vector<Vertex*> adjacent_vertices;
 
             // [2] Methods
 
@@ -54,7 +54,7 @@ namespace graphs
                  * 
                  * @param vertex    The vertex to be added.
                  */
-                void add_adjacent_vertex (Vertex &vertex);
+                void add_adjacent_vertex (Vertex *vertex);
 
                 /**
                  * @brief               Removes a vertex from this vertex list of
