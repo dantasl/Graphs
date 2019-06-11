@@ -25,7 +25,7 @@ int main()
 
     // [2] Adding adjacent vertices
     
-    //v1->add_adjacent_vertex(v2);
+    v1->add_adjacent_vertex(v2);
     v1->add_adjacent_vertex(v3);
     v1->add_adjacent_vertex(v4);
     v1->add_adjacent_vertex(v5);
@@ -57,13 +57,7 @@ int main()
 
     graph = DSATUR(graph);
 
-    //auto n_graph = DSATUR(graph);
-
-    // [6] Tests session
-
-    // Printing saturation degree of all vertices.
-    for (auto it = graph.vertices.begin(); it != graph.vertices.end(); ++it)
-    {
-        std::cout << (*it)->identifier << " " << (*it)->saturation_degree << std::endl;
-    }
+    // [6] Checking graph
+    if (graph.is_valid()) std::cout << "Yay!" << std::endl;
+    graph.print_colors();
 }

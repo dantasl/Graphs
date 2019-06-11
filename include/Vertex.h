@@ -14,6 +14,9 @@
 #define GRAPHS_VERTEX_H
 
 #include <vector>
+#include <set>
+#include <algorithm>
+#include <iostream>
 
 namespace graphs
 {
@@ -124,10 +127,12 @@ namespace graphs
                 void update_neighbors_saturation_degree();
 
                 /**
-                 * @brief   Searches this vertex neighbors and assigns to this one
-                 *          the lesser color available.
+                 * @brief           Searches this vertex neighbors and assigns to this one
+                 *                  the lesser color available.
+                 * 
+                 * @param colors    Set of available colors.
                  */
-                void color_vertex();
+                void color_vertex(std::set< int, std::greater<int> > &colors);
     };
 }
 

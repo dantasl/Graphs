@@ -26,6 +26,7 @@ namespace graphs
 
             std::vector<Edge*> edges;
             std::vector<Vertex*> vertices;
+            std::set< int, std::greater<int> > colors;
 
             // [2] Methods
 
@@ -58,6 +59,27 @@ namespace graphs
              * @return false    Otherwise.
              */
             bool is_colored();
+
+            /**
+             * @brief           Checks if the graph has a valid coloring.
+             * 
+             * @return true     If no adjacent vertices share the same color.
+             * @return false    Otherwise.
+             */
+            bool is_valid();
+
+            /**
+             * @brief           Computes the chromatic number of this graph, by the
+             *                  perspective of DSATUR's algorithm.
+             * 
+             * @return int      The chromatic number.
+             */
+            int dsatur_chromatic();
+
+            /**
+             * @brief           Prints the colors of this graph's vertices.
+             */
+            void print_colors();
     };
 }
 

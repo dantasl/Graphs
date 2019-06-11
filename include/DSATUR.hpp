@@ -33,7 +33,7 @@ namespace graphs
         //          only on this first vertex. 
         
         auto max_degree = graph.find_maximum_degree();
-        max_degree->vertex_color = 0;
+        max_degree->vertex_color = 1;
         max_degree->colored = true;
         max_degree->update_neighbors_saturation_degree();
         max_degree->saturation_degree = max_degree->adjacent_vertices.size();
@@ -49,10 +49,12 @@ namespace graphs
         while (!graph.is_colored())
         {
             auto max_sat_degree = graph.find_maximum_saturation_degree();
-            max_sat_degree->color_vertex();
+            max_sat_degree->color_vertex(graph.colors);
             max_sat_degree->colored = true;
             max_sat_degree->update_neighbors_saturation_degree();
-        } 
+        }
+
+        return graph; 
     }
 }
 

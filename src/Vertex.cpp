@@ -63,10 +63,32 @@ void Vertex::update_neighbors_saturation_degree()
 {
     // Iterates over the neighbors of given vertex and update their saturation degree
     for (auto it = this->adjacent_vertices.begin(); it != this->adjacent_vertices.end(); ++it)
-        (*it)->saturation_degree ++;
+        if ( !(*it)->colored ) (*it)->saturation_degree ++;
 }
 
-void Vertex::color_vertex()
+void Vertex::color_vertex(std::set< int, std::greater<int> > &colors)
 {
+    // Get the color of all the neighbors into an auxiliary set
+    std::set< int, std::greater<int> > aux;
+    std::set< int, std::greater<int> > diff;
+    for (auto it = this->adjacent_vertices.begin(); it != this->adjacent_vertices.end(); ++it)
+        if ((*it)->colored) aux.insert( (*it)->vertex_color );
     
+    // To find the color we can do: min(colors - aux)
+    std::set_difference(
+        colors.begin(), colors.end(),
+        aux.begin(), aux.end(),
+        std::inserter(diff, diff.end())
+    );
+
+    // If the difference of sets its not empty, we get the lesser color
+    if (diff.size() > 0)
+    {
+        this->vertex_color = *diff.begin();
+        return;
+    }
+
+    // Otherwise, we must add a new color and set this vertex to it
+    colors.insert( *colors.end() + 1 );
+    this->vertex_color = *colors.end();
 }
