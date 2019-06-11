@@ -22,16 +22,10 @@ int main()
     Vertex *v3 = new Vertex(3);
     Vertex *v4 = new Vertex(4);
     Vertex *v5 = new Vertex(5);
-    
-    /**Vertex v1(1);
-    Vertex v2(2);
-    Vertex v3(3);
-    Vertex v4(4);
-    Vertex v5(5);*/
 
     // [2] Adding adjacent vertices
     
-    v1->add_adjacent_vertex(v2);
+    //v1->add_adjacent_vertex(v2);
     v1->add_adjacent_vertex(v3);
     v1->add_adjacent_vertex(v4);
     v1->add_adjacent_vertex(v5);

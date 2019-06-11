@@ -30,3 +30,23 @@ Vertex* Graph::find_maximum_degree()
     
     return *aux;
 }
+
+Vertex* Graph::find_maximum_saturation_degree()
+{
+    // This method will only consider the vertices that are uncolored
+    auto aux = vertices.begin();
+    for (auto it = this->vertices.begin(); it != this->vertices.end(); ++it)
+        if ( ( (*it)->saturation_degree > (*aux)->saturation_degree ) && !(*it)->colored )
+            aux = it;
+
+    return *aux;
+}
+
+bool Graph::is_colored()
+{
+    // It is necessary only one uncolored vertex for this method to return false.
+    bool colored = true;
+    for (auto it = this->vertices.begin(); it != this->vertices.end(); ++it)
+        if ( !(*it)->colored ) return false;
+    return colored;
+}

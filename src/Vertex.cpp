@@ -65,3 +65,8 @@ void Vertex::update_neighbors_saturation_degree()
     for (auto it = this->adjacent_vertices.begin(); it != this->adjacent_vertices.end(); ++it)
         (*it)->saturation_degree ++;
 }
+
+void Vertex::color_vertex()
+{
+    
+}

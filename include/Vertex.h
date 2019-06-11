@@ -122,6 +122,12 @@ namespace graphs
                  *                  degree of its neighbors.
                  */
                 void update_neighbors_saturation_degree();
+
+                /**
+                 * @brief   Searches this vertex neighbors and assigns to this one
+                 *          the lesser color available.
+                 */
+                void color_vertex();
     };
 }
 

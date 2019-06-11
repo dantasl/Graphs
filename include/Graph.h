@@ -43,6 +43,21 @@ namespace graphs
              * @return Vertex*  Vertex with the maximum degree within this graph. 
              */
             Vertex* find_maximum_degree();
+
+            /**
+             * @brief           Finds the vertex with the maximum saturation degree.
+             * 
+             * @return Vertex*  Vertex with the maximum saturation degree within this graph.
+             */
+            Vertex* find_maximum_saturation_degree();
+
+            /**
+             * @brief           Checks if the graph is fully colored.
+             * 
+             * @return true     If all vertices have a color.
+             * @return false    Otherwise.
+             */
+            bool is_colored();
     };
 }
 
