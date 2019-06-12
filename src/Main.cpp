@@ -11,15 +11,16 @@
  */
 
 #include "../include/algorithm/DSATUR.hpp"
+#include "../include/parser/Parser.h"
 
 using namespace graphs;
+
+void init_engine(const char* filename);
 
 int main(int argc, char *argv[])
 {
     // [1]  Get from user the graph file.
-    std::string filename;
-    if (argc == 2) filename = argv[1];
-    else
+    if (argc != 2)
     {
         std::cout << "Unable to run the algorithm without the graph file." << std::endl;
         std::cout << "Expecting: ./graphs.out <xml_file>" << std::endl;
@@ -32,7 +33,15 @@ int main(int argc, char *argv[])
               << "|            Lucas Gomes Dantas           |\n"
               << "|         Tayanne Ferreira da Rocha       |\n" 
               << "+=========================================+\n";
+    std::cout << "\nRunning: " << argv[1] << std::endl;
 
-    // [3]  Calling the parser
+    // [3]  Calling the subprogram that preprocess the graph file
+    init_engine(argv[1]);
+}
 
+void init_engine(const char* filename)
+{
+    // [1]  Parser file with the graph
+    Parser parser(filename);
+    parser.run();
 }
