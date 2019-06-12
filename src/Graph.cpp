@@ -29,20 +29,31 @@ Vertex* Graph::find_maximum_degree()
 
     // Iterates over the vector of vertices comparing the degrees
     for (auto it = this->vertices.begin(); it != this->vertices.end(); ++it)
-        if ((*it)->degree > (*aux)->degree) aux = it;
+        if ((*it)->degree() > (*aux)->degree()) aux = it;
     
     return *aux;
 }
 
 Vertex* Graph::find_maximum_saturation_degree()
 {
-    // This method will only consider the vertices that are uncolored
-    auto aux = vertices.begin();
-    for (auto it = this->vertices.begin(); it != this->vertices.end(); ++it)
-        if ( ( (*it)->saturation_degree > (*aux)->saturation_degree ) && !(*it)->colored )
-            aux = it;
+    // Finding maximum saturation degree
+    int max_saturation_degree = 0;
+    for (auto it = vertices.begin(); it != vertices.end(); ++it)
+        if ( ((*it)->saturation_degree > max_saturation_degree) && (!(*it)->colored) )
+            max_saturation_degree = (*it)->saturation_degree;            
+    
+    // Iterating over vertices with maximum saturation degree
+    int degree = 0;
+    Vertex* max_saturated = nullptr;
+    for (auto it = vertices.begin(); it != vertices.end(); ++it)
+        if ( ((*it)->saturation_degree == max_saturation_degree) && (!(*it)->colored) )
+            if ( (*it)->degree() >= degree )
+            {
+                degree = (*it)->degree();
+                max_saturated = *it;
+            }
 
-    return *aux;
+    return max_saturated;
 }
 
 bool Graph::is_colored()

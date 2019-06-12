@@ -26,10 +26,6 @@ void Vertex::add_adjacent_vertex (Vertex *vertex)
     // Adding the vertices to the adjacent list
     this->adjacent_vertices.push_back(vertex);
     vertex->adjacent_vertices.push_back(this);
-
-    // Incrementing the vertices degree
-    this->degree++;
-    vertex->degree++;
 }
 
 void Vertex::remove_adjacent_vertex (int identifier)
@@ -42,7 +38,6 @@ void Vertex::remove_adjacent_vertex (int identifier)
         if ((*v)->identifier == identifier)
         {
             this->adjacent_vertices.erase(v, v + 1);
-            this->degree--;
             break;
         }
 }
@@ -59,11 +54,21 @@ bool Vertex::is_adjacent (Vertex &vertex)
     return false;
 }
 
+bool Vertex::neighbor_same_color(int color, int source)
+{
+    for ( auto it = adjacent_vertices.begin(); it != adjacent_vertices.end(); ++it )
+        if ( (*it)->colored && (*it)->identifier != source )
+            if ( (*it)->vertex_color == color ) return true;
+    return false;
+}
+
 void Vertex::update_neighbors_saturation_degree()
 {
-    // Iterates over the neighbors of given vertex and update their saturation degree
-    for (auto it = this->adjacent_vertices.begin(); it != this->adjacent_vertices.end(); ++it)
-        if ( !(*it)->colored ) (*it)->saturation_degree ++;
+    // Iterates over the neighbors of given vertex
+    for (auto it = adjacent_vertices.begin(); it != adjacent_vertices.end(); ++it)
+    {
+        if ( ! (*it)->neighbor_same_color(vertex_color, identifier) ) (*it)->saturation_degree += 1;
+    }
 }
 
 void Vertex::color_vertex(std::set< int, std::greater<int> > &colors)

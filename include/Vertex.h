@@ -26,10 +26,9 @@ namespace graphs
             // [1] Attributes
                 
                 int identifier;                       
-                int degree{0};
-                int saturation_degree{0};
-                int vertex_color{-1};
-                bool colored{false};
+                int saturation_degree = 0;
+                int vertex_color = -1;
+                bool colored = false;
                 std::vector<Vertex*> adjacent_vertices;
 
             // [2] Methods
@@ -50,6 +49,13 @@ namespace graphs
                  * @brief Destroy the Vertex object
                  */
                 ~Vertex () = default;
+
+                /**
+                 * @brief       Return the degree of this vertex.
+                 * 
+                 * @return int 
+                 */
+                inline int degree() const { return adjacent_vertices.size(); }
 
                 /**
                  * @brief           Adds one adjancet vertex to this vertex list of
@@ -86,7 +92,6 @@ namespace graphs
                 Vertex& operator= (const Vertex &other)
                 {
                     this->identifier = other.identifier;
-                    this->degree = other.degree;
                     this->saturation_degree = other.saturation_degree;
                     this->vertex_color = other.vertex_color;
                     this->colored = other.colored;
@@ -104,7 +109,7 @@ namespace graphs
                  */
                 bool operator== (const Vertex &other)
                 {
-                    return this->identifier == other.identifier && this->degree == other.degree;
+                    return this->identifier == other.identifier && this->degree() == other.degree();
                 }
 
                 /**
@@ -119,6 +124,16 @@ namespace graphs
                 {
                     return !(*this == other);
                 }
+
+                /**
+                 * @brief           Checks if a given color is the same of any neighbor's.
+                 * 
+                 * @param color     The color to be checked.
+                 * @param source    The identifier of the source vertex (i.e. the one who called)
+                 * @return true     If there's at least one neighbor with the given color.
+                 * @return false    Otherwise.
+                 */
+                bool neighbor_same_color(int color, int source);
 
                 /**
                  * @brief           Given a certain vertex, increments the saturation
