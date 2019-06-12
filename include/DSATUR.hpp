@@ -1,5 +1,5 @@
 /**
- * @file        DSATUR.h
+ * @file        DSATUR.hpp
  * @author      Lucas Gomes Dantas (dantaslucas@ufrn.edu.br)
  * @author      Tayanne Ferreira da Rocha (tayaneferreiradarocha@gmail.com)
  * @brief       This file defines the DSATUR algorithm implementation.
@@ -10,8 +10,8 @@
  * 
  */
 
-#ifndef GRAPHS_DSATUR_H
-#define GRAPHS_DSATUR_H
+#ifndef GRAPHS_DSATUR_HPP
+#define GRAPHS_DSATUR_HPP
 
 #include "Graph.h"
 
@@ -58,4 +58,4 @@ namespace graphs
     }
 }
 
-#endif // GRAPHS_DSATUR_H
+#endif // GRAPHS_DSATUR_HPP
