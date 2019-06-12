@@ -14,6 +14,9 @@
 #define GRAPHS_VERTEX_H
 
 #include <vector>
+#include <set>
+#include <algorithm>
+#include <iostream>
 
 namespace graphs
 {
@@ -23,11 +26,10 @@ namespace graphs
             // [1] Attributes
                 
                 int identifier;                       
-                int degree{0};
-                int saturation_degree{0};
-                int vertex_color{-1};
-                bool colored{false};
-                std::vector<Vertex> adjacent_vertices;
+                int saturation_degree = 0;
+                int vertex_color = -1;
+                bool colored = false;
+                std::vector<Vertex*> adjacent_vertices;
 
             // [2] Methods
 
@@ -49,12 +51,19 @@ namespace graphs
                 ~Vertex () = default;
 
                 /**
+                 * @brief       Return the degree of this vertex.
+                 * 
+                 * @return int 
+                 */
+                inline int degree() const { return adjacent_vertices.size(); }
+
+                /**
                  * @brief           Adds one adjancet vertex to this vertex list of
                  *                  neighbors.
                  * 
                  * @param vertex    The vertex to be added.
                  */
-                void add_adjacent_vertex (Vertex &vertex);
+                void add_adjacent_vertex (Vertex *vertex);
 
                 /**
                  * @brief               Removes a vertex from this vertex list of
@@ -83,7 +92,6 @@ namespace graphs
                 Vertex& operator= (const Vertex &other)
                 {
                     this->identifier = other.identifier;
-                    this->degree = other.degree;
                     this->saturation_degree = other.saturation_degree;
                     this->vertex_color = other.vertex_color;
                     this->colored = other.colored;
@@ -101,7 +109,7 @@ namespace graphs
                  */
                 bool operator== (const Vertex &other)
                 {
-                    return this->identifier == other.identifier && this->degree == other.degree;
+                    return this->identifier == other.identifier && this->degree() == other.degree();
                 }
 
                 /**
@@ -118,10 +126,28 @@ namespace graphs
                 }
 
                 /**
+                 * @brief           Checks if a given color is the same of any neighbor's.
+                 * 
+                 * @param color     The color to be checked.
+                 * @param source    The identifier of the source vertex (i.e. the one who called)
+                 * @return true     If there's at least one neighbor with the given color.
+                 * @return false    Otherwise.
+                 */
+                bool neighbor_same_color(int color, int source);
+
+                /**
                  * @brief           Given a certain vertex, increments the saturation
                  *                  degree of its neighbors.
                  */
                 void update_neighbors_saturation_degree();
+
+                /**
+                 * @brief           Searches this vertex neighbors and assigns to this one
+                 *                  the lesser color available.
+                 * 
+                 * @param colors    Set of available colors.
+                 */
+                void color_vertex(std::set< int, std::greater<int> > &colors);
     };
 }
 

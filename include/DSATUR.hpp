@@ -30,15 +30,31 @@ namespace graphs
         // [2.4]    Update the saturation degree of its neighbors.
         // [2.5]    Since all the neighbors of this vertex will be colored
         //          we can update its saturation degree. This will be done
-        //          only on this first vertex. 
+        //          only on this first vertex.
         
         auto max_degree = graph.find_maximum_degree();
-        max_degree->vertex_color = 0;
+        max_degree->vertex_color = 1;
         max_degree->colored = true;
         max_degree->update_neighbors_saturation_degree();
         max_degree->saturation_degree = max_degree->adjacent_vertices.size();
 
-        return graph;
+        // [3]      Coloring the remaining vertices
+        // [3.1]    Tries to find the vertex with maximum saturation degree.
+        //          If the algorithm cannot find one, all vertices are colored.
+        // [3.2]    After finding the vertex with the most saturated degree,
+        //          we must find its color. This is done by looking at the colors
+        //          of its neighbors and getting the lesser unused color.
+        // [3.3]    We now repeat steps [2.3] and [2.4].
+
+        while (!graph.is_colored())
+        {
+            Vertex* max_sat_degree = graph.find_maximum_saturation_degree();
+            max_sat_degree->color_vertex(graph.colors);
+            max_sat_degree->colored = true;
+            max_sat_degree->update_neighbors_saturation_degree();
+        }
+
+        return graph; 
     }
 }
 

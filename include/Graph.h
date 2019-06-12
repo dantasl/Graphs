@@ -24,8 +24,9 @@ namespace graphs
         public:
             // [1] Attributes
 
-            std::vector<Edge> edges;
-            std::vector<Vertex> vertices;
+            std::vector<Edge*> edges;
+            std::vector<Vertex*> vertices;
+            std::set< int, std::greater<int> > colors;
 
             // [2] Methods
 
@@ -35,7 +36,7 @@ namespace graphs
              * @param edges     Vector of edges of this graph
              * @param vertices  Vector of verticies of this graph
              */
-            Graph(std::vector<Edge> &edges, std::vector<Vertex> &vertices);
+            Graph(std::vector<Edge*> edges, std::vector<Vertex*> vertices);
 
             /**
              * @brief           Finds the vertex with the maximum degree.
@@ -43,6 +44,42 @@ namespace graphs
              * @return Vertex*  Vertex with the maximum degree within this graph. 
              */
             Vertex* find_maximum_degree();
+
+            /**
+             * @brief           Finds the vertex with the maximum saturation degree.
+             * 
+             * @return Vertex*  Vertex with the maximum saturation degree within this graph.
+             */
+            Vertex* find_maximum_saturation_degree();
+
+            /**
+             * @brief           Checks if the graph is fully colored.
+             * 
+             * @return true     If all vertices have a color.
+             * @return false    Otherwise.
+             */
+            bool is_colored();
+
+            /**
+             * @brief           Checks if the graph has a valid coloring.
+             * 
+             * @return true     If no adjacent vertices share the same color.
+             * @return false    Otherwise.
+             */
+            bool is_valid();
+
+            /**
+             * @brief           Computes the chromatic number of this graph, by the
+             *                  perspective of DSATUR's algorithm.
+             * 
+             * @return int      The chromatic number.
+             */
+            int dsatur_chromatic();
+
+            /**
+             * @brief           Prints the colors of this graph's vertices.
+             */
+            void print_colors();
     };
 }
 
