@@ -13,7 +13,7 @@
 #ifndef GRAPHS_DSATUR_HPP
 #define GRAPHS_DSATUR_HPP
 
-#include "Graph.h"
+#include "../graph/Graph.h"
 
 namespace graphs
 {

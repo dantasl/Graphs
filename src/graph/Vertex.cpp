@@ -10,7 +10,7 @@
  * 
  */
 
-#include "../include/Vertex.h"
+#include "./../include/graph/Vertex.h"
 
 using namespace graphs;
 

@@ -10,7 +10,7 @@
  * 
  */
 
-#include "../include/Graph.h"
+#include "../../include/graph/Graph.h"
 
 using namespace graphs;
 
