@@ -37,11 +37,49 @@ namespace graphs
 
             // [2] - Private Methods
 
+            /**
+             * @brief                   This function will add minutes to an hour.
+             * 
+             * @param hour              The hour to add the minutes.
+             * @param minutes_to_add    The minutes to be added.
+             * @return std::string      The new hour, with the minutes added.
+             */
             std::string add_minutes_to(std::string hour, int minutes_to_add);
+
+            /**
+             * @brief           This function will check if one hour is greater
+             *                  than or equal to another hour.
+             * 
+             * @param h1        The first hour.
+             * @param h2        The second hour.
+             * @return true     If the first hour is greater than or equal the second.
+             * @return false    Otherwise.
+             */
             bool hour_greater_equal(std::string h1, std::string h2);
+            
+            /**
+             * @brief           This function will iterate over the schedule list of
+             *                  a patient, check for conflicts and add the schedules
+             *                  to the schedules_list attribute.
+             * 
+             * @param patient   The patient to treat its schedule list.
+             */
             void treat_patient_schedule(XMLElement *patient);
+
+            /**
+             * @brief           This function will check if there's a conflict between
+             *                  two hours.
+             * 
+             * @param h1        The first hour to check conflict.
+             * @param h2        The second hour to check conflict.
+             * @return true     If there's a conflict between them.
+             * @return false    Otherwise.
+             */
             bool errors_minimization(std::string h1, std::string h2);
 
+            /**
+             * @brief Create vertices from schedules_list.
+             */
             void create_vertices_from_list();
 
         public:

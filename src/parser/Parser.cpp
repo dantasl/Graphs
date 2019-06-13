@@ -142,7 +142,26 @@ void Parser::treat_patient_schedule(XMLElement *patient)
 
 void Parser::create_vertices_from_list()
 {
-    
+    // Taking only those who share no conflicts
+    std::set<std::string> no_conflicts;
+    bool conflicted = false;
+    for (auto i = schedules_list.begin(); i != schedules_list.end(); ++i)
+    {
+        conflicted = false;
+        for (auto j = schedules_list.begin(); j != schedules_list.end(); ++j)
+        {
+            if (i == j) continue;
+            if ( errors_minimization(*i, *j) ) conflicted = true;                    
+        }
+        if (!conflicted) no_conflicts.insert(*i);
+    }
+
+    // We make a copy of the list
+    std::list<std::string> conflicts(schedules_list.begin(), schedules_list.end());
+
+    // And remove from this copied list the non-conflicting schedules
+    for (const auto n: no_conflicts)
+        conflicts.remove(n);
 }
 
 void Parser::parse_graph_file()
@@ -157,5 +176,6 @@ void Parser::parse_graph_file()
     }
 
     // [2]  Now, its time to create the vertices of the graph
+
     create_vertices_from_list();
-}    
+}
