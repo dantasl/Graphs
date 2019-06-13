@@ -1,0 +1,32 @@
+<graph>
+    <patient id="1">
+        <schedule list="10h00 10h04 11h00 12h00"/>
+    </patient>
+    <patient id="2">
+        <schedule list="07h04 07h00 08h00 09h00 10h02 12h00"/>
+    </patient>
+    <patient id="3">
+        <schedule list="07h04 07h00 08h00 09h00 10h03 12h00"/>
+    </patient>
+    <patient id="4">
+        <schedule list="10h15 10h17 15h35"/>
+    </patient>
+    <patient id="5">
+        <schedule list="23h00"/>
+    </patient>
+    <patient id="6">
+        <schedule list="13h50 14h00 10h45"/>
+    </patient>
+    <patient id="7">
+        <schedule list="16h05 16h40"/>
+    </patient>
+    <patient id="8">
+        <schedule list="09h46"/>
+    </patient>
+    <patient id="9">
+        <schedule list="20h00 21h00"/>
+    </patient>
+    <patient id="10">
+        <schedule list="13h12 22h45 18h14"/>
+    </patient>
+</graph>
