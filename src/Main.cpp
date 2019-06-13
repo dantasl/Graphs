@@ -12,6 +12,7 @@
 
 #include "../include/algorithm/DSATUR.hpp"
 #include "../include/parser/Parser.h"
+#include <chrono>
 
 using namespace graphs;
 
@@ -48,11 +49,21 @@ int main(int argc, char *argv[])
 
     // [5] Invoking the DSATUR algorithm
 
+    // ====================== Measuring DSATUR running time ======================
+    auto start_dsatur = std::chrono::steady_clock::now();
     graph = DSATUR(graph);
+    auto end_dsatur = std::chrono::steady_clock::now();
+    // ===========================================================================
+    
+    auto time_diff = end_dsatur - start_dsatur;
+    double run_time = std::chrono::duration <double, std::milli> (time_diff).count();
 
     // [6] Checking graph
     
     if (graph.is_valid()) std::cout << "The resulting vertex coloring is valid." << std::endl;
+    else std::cout << "The above is an invalid vertex coloring." << std::endl;
+    std::cout << "TA of " << TA << " minutes." << std::endl;
+    std::cout << "The DSATUR algorithm ran in " << run_time << " milliseconds." << std::endl;
     graph.print_colors();
 }
 
