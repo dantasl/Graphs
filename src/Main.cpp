@@ -13,13 +13,18 @@
 #include "../include/algorithm/DSATUR.hpp"
 #include "../include/parser/Parser.h"
 #include <chrono>
+#include <fstream>
 
 using namespace graphs;
 
 std::vector<Vertex*> run_parser(const char* filename);
+void print_to_txt(std::vector<std::string> &log);
 
 int main(int argc, char *argv[])
 {
+    std::vector<std::string> log;
+    std::string temp;
+
     // [1]  Get from user the graph file.
     
     if (argc != 2)
@@ -30,13 +35,18 @@ int main(int argc, char *argv[])
     }
 
     // [2]  Printing welcome menu
-    
-    std::cout << "+=========================================+\n"
-              << "|       Graphs -- Implementing DSATUR     |\n"
-              << "|            Lucas Gomes Dantas           |\n"
-              << "|         Tayanne Ferreira da Rocha       |\n" 
-              << "+=========================================+\n";
-    std::cout << "\nRunning: " << argv[1] << std::endl;
+
+    temp = std::string("+=========================================+\n")
+                     + "|       Graphs -- Implementing DSATUR     |\n"
+                     + "|            Lucas Gomes Dantas           |\n"
+                     + "|         Tayanne Ferreira da Rocha       |\n" 
+                     + "+=========================================+\n";
+    std::cout << temp << std::endl;
+    log.push_back(temp);
+
+    temp = std::string("Running: ") + argv[1] + "\n";
+    std::cout << temp;
+    log.push_back(temp);
 
     // [3]  Calling the subprogram that preprocess the graph file
     
@@ -60,11 +70,31 @@ int main(int argc, char *argv[])
 
     // [6] Checking graph
     
-    if (graph.is_valid()) std::cout << "The resulting vertex coloring is valid." << std::endl;
-    else std::cout << "The above is an invalid vertex coloring." << std::endl;
-    std::cout << "TA of " << TA << " minutes." << std::endl;
-    std::cout << "The DSATUR algorithm ran in " << run_time << " milliseconds." << std::endl;
-    graph.print_colors();
+    if (graph.is_valid()) temp = "The resulting vertex coloring is valid.\n";
+    else temp = "The above is an invalid vertex coloring.\n";
+    std::cout << temp;
+    log.push_back(temp);
+
+    temp = std::string("TA of ") + std::to_string(TA) + " minutes. \n"
+           + "The DSATUR algorithm ran in " + std::to_string(run_time) + " milliseconds. \n";
+    std::cout << temp << std::endl;
+    log.push_back(temp);
+    
+    temp = graph.get_colored();
+    std::cout << temp << std::endl;
+    log.push_back(temp);
+
+    // [7] Printing to output file
+    
+    print_to_txt(log);
+}
+
+void print_to_txt(std::vector<std::string> &log)
+{
+    std::ofstream file("files/result_dsatur.txt");
+    for (unsigned int i = 0; i < log.size(); ++i) file << log[i];
+    file.close();
+    std::cout << "Log generated at files/result_dsatur.txt" << std::endl;
 }
 
 std::vector<Vertex*> run_parser(const char* filename)

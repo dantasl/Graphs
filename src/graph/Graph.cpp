@@ -89,3 +89,13 @@ void Graph::print_colors()
                     << ") - (SCHEDULE " << (*it)->schedule
                     << ") - (COLOR " << (*it)->vertex_color << ")" << std::endl;
 }
+
+std::string Graph::get_colored()
+{
+    std::string buffer;
+    for (auto it = this->vertices.begin(); it != this->vertices.end(); ++it)
+        buffer +=   std::string("* (ID ") + std::to_string((*it)->identifier)
+                    + ") - (SCHEDULE " + (*it)->schedule
+                    + ") - (COLOR " + std::to_string((*it)->vertex_color) + ")\n";
+    return buffer;  
+}

@@ -80,6 +80,13 @@ namespace graphs
              * @brief           Prints the colors of this graph's vertices.
              */
             void print_colors();
+
+            /**
+             * @brief           Composes an string with vertex - color
+             * 
+             * @return          std::string 
+             */
+            std::string get_colored();
     };
 }
 
