@@ -162,6 +162,32 @@ void Parser::create_vertices_from_list()
     // And remove from this copied list the non-conflicting schedules
     for (const auto n: no_conflicts)
         conflicts.remove(n);
+    
+    // Creating vertices of schedules with conflict
+    int identifier = 1;
+    for (auto c: conflicts)
+    {
+        parser_vertices.push_back( new Vertex(identifier, c) );
+        identifier++;
+    }
+
+    // Adding adjacencies
+    for ( auto i = parser_vertices.begin(); i != parser_vertices.end(); ++i )
+    {
+        for ( auto j = parser_vertices.begin(); j != parser_vertices.end(); ++j )
+        {
+            if (i == j) continue;
+            if ( errors_minimization( (*i)->schedule, (*j)->schedule ) )
+                (*i)->add_adjacent_vertex(*j);
+        }
+    }
+
+    // Creating vertices of unconflited schedules
+    for (auto n: no_conflicts)
+    {
+        parser_vertices.push_back( new Vertex(identifier, n) );
+        identifier++;
+    }
 }
 
 void Parser::parse_graph_file()

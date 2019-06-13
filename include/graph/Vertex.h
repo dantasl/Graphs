@@ -29,6 +29,7 @@ namespace graphs
                 int saturation_degree = 0;
                 int vertex_color = -1;
                 bool colored = false;
+                std::string schedule;
                 std::vector<Vertex*> adjacent_vertices;
 
             // [2] Methods
@@ -39,11 +40,12 @@ namespace graphs
                 Vertex ();
 
                 /**
-                 * @brief       Construct a new Vertex object with identifier.
+                 * @brief           Construct a new Vertex object with identifier.
                  * 
-                 * @param id    Vertex identifier.
+                 * @param id        Vertex identifier.
+                 * @param schedule  The schedule of the vertex.
                  */
-                Vertex (int id);
+                Vertex (int id, std::string schedule);
 
                 /**
                  * @brief Destroy the Vertex object
@@ -95,6 +97,7 @@ namespace graphs
                     this->saturation_degree = other.saturation_degree;
                     this->vertex_color = other.vertex_color;
                     this->colored = other.colored;
+                    this->schedule = other.schedule;
                     this->adjacent_vertices = other.adjacent_vertices;
                     return *this;
                 }
@@ -148,6 +151,11 @@ namespace graphs
                  * @param colors    Set of available colors.
                  */
                 void color_vertex(std::set< int, std::greater<int> > &colors);
+
+                /**
+                 * @brief   This function will print the neighbors of this vertex.
+                 */
+                void print_neighbors();
     };
 }
 

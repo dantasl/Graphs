@@ -16,13 +16,18 @@ using namespace graphs;
 
 Vertex::Vertex(){/* empty */}
 
-Vertex::Vertex(int identifier)
+Vertex::Vertex(int identifier, std::string schedule)
     : identifier{identifier}
+    , schedule{schedule}
     , adjacent_vertices{std::vector<Vertex*>()}
     {/* empty */}
 
 void Vertex::add_adjacent_vertex (Vertex *vertex)
 {
+    // Checks if the vertex is already on the list
+    for (auto it = adjacent_vertices.begin(); it != adjacent_vertices.end(); ++it)
+        if ( (*it)->identifier == vertex->identifier ) return;
+
     // Adding the vertices to the adjacent list
     this->adjacent_vertices.push_back(vertex);
     vertex->adjacent_vertices.push_back(this);
@@ -96,4 +101,12 @@ void Vertex::color_vertex(std::set< int, std::greater<int> > &colors)
     // Otherwise, we must add a new color and set this vertex to it
     colors.insert( *colors.end() + 1 );
     this->vertex_color = *colors.end();
+}
+
+void Vertex::print_neighbors()
+{
+    std::cout << std::endl;
+    std::cout << "Vertex ID - " << identifier << " Schedule - " << schedule << std::endl;
+    for (auto it = adjacent_vertices.begin(); it != adjacent_vertices.end(); ++it)
+        std::cout << "----- ADJ_ID: " << (*it)->identifier << " ADJ_SCH: " << (*it)->schedule << std::endl;
 }
