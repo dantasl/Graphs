@@ -43,5 +43,5 @@ void init_engine(const char* filename)
 {
     // [1]  Parser file with the graph
     Parser parser(filename);
-    parser.run();
+    parser.parse_graph_file();
 }

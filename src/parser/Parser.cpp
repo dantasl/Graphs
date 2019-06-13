@@ -29,11 +29,6 @@ Parser::Parser(std::string filepath)
     }
 }
 
-void Parser::run()
-{
-    parse_graph_file();
-}
-
 std::string Parser::add_minutes_to(std::string hour, int minutes_to_add)
 {
     // Replace "h" by a white space and splitting hours and minutes
@@ -124,13 +119,30 @@ void Parser::treat_patient_schedule(XMLElement *patient)
     );
 
     // Comparing if any of the schedules of this patient share no conflicts
+    std::set<std::string> no_conflicts;
     for (auto i = schedules_split.begin(); i != schedules_split.end(); ++i)
-        for (auto j = schedules_split.begin(); j != schedules_split.end(); ++j)
+        for (auto j = i; j != schedules_split.end(); ++j)
             if (i != j)
-                if (errors_minimization(*i, *j))
+            {
+                if (!errors_minimization(*i, *j))
                 {
-                    std::cout << "Conflict! Between " << *i << " and " << *j << std::endl;
+                    no_conflicts.insert(*i);
+                    no_conflicts.insert(*j);
                 }
+                else
+                {
+                    no_conflicts.erase(i, ++i);
+                }
+            }
+
+    // Sending this to the list of schedules
+    for (auto n : no_conflicts)
+        this->schedules_list.push_back(n);
+}
+
+void Parser::create_vertices_from_list()
+{
+    
 }
 
 void Parser::parse_graph_file()
@@ -143,4 +155,7 @@ void Parser::parse_graph_file()
     {
         treat_patient_schedule(patient);                                
     }
+
+    // [2]  Now, its time to create the vertices of the graph
+    create_vertices_from_list();
 }    

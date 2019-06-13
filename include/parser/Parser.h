@@ -16,6 +16,7 @@
 #include <iterator>
 #include <sstream>
 #include <string>
+#include <list>
 #include "tinyxml2.h"
 #include "../graph/Graph.h"
 
@@ -32,6 +33,7 @@ namespace graphs
 
             tinyxml2::XMLDocument graph_file;
             tinyxml2::XMLNode *pRoot;
+            std::list<std::string> schedules_list;
 
             // [2] - Private Methods
 
@@ -39,6 +41,8 @@ namespace graphs
             bool hour_greater_equal(std::string h1, std::string h2);
             void treat_patient_schedule(XMLElement *patient);
             bool errors_minimization(std::string h1, std::string h2);
+
+            void create_vertices_from_list();
 
         public:
 
@@ -66,11 +70,6 @@ namespace graphs
              * @brief This will load the graph file and treat its content.
              */
             void parse_graph_file();
-            
-            /**
-             * @brief Calls all the necessary functions to fully parse the file.
-             */
-            void run();
     };    
 }
 
