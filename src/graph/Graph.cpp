@@ -85,5 +85,7 @@ int Graph::dsatur_chromatic() { return colors.size(); }
 void Graph::print_colors()
 {
     for (auto it = this->vertices.begin(); it != this->vertices.end(); ++it)
-        std::cout << (*it)->identifier << ": " << (*it)->vertex_color << std::endl;
+        std::cout   << "* ID -> " << (*it)->identifier
+                    << " - SCH -> " << (*it)->schedule
+                    << " - COLOR -> " << (*it)->vertex_color << std::endl;
 }

@@ -15,11 +15,12 @@
 
 using namespace graphs;
 
-void init_engine(const char* filename);
+std::vector<Vertex*> run_parser(const char* filename);
 
 int main(int argc, char *argv[])
 {
     // [1]  Get from user the graph file.
+    
     if (argc != 2)
     {
         std::cout << "Unable to run the algorithm without the graph file." << std::endl;
@@ -28,6 +29,7 @@ int main(int argc, char *argv[])
     }
 
     // [2]  Printing welcome menu
+    
     std::cout << "+=========================================+\n"
               << "|       Graphs -- Implementing DSATUR     |\n"
               << "|            Lucas Gomes Dantas           |\n"
@@ -36,12 +38,28 @@ int main(int argc, char *argv[])
     std::cout << "\nRunning: " << argv[1] << std::endl;
 
     // [3]  Calling the subprogram that preprocess the graph file
-    init_engine(argv[1]);
+    
+    auto vertices = run_parser(argv[1]);
+
+    // [4]  Creating graph
+    
+    std::vector<Edge*> edges;
+    Graph graph(edges, vertices);
+
+    // [5] Invoking the DSATUR algorithm
+
+    graph = DSATUR(graph);
+
+    // [6] Checking graph
+    
+    if (graph.is_valid()) std::cout << "The resulting vertex coloring is valid." << std::endl;
+    graph.print_colors();
 }
 
-void init_engine(const char* filename)
+std::vector<Vertex*> run_parser(const char* filename)
 {
     // [1]  Parser file with the graph
     Parser parser(filename);
     parser.parse_graph_file();
+    return parser.parser_vertices;
 }
