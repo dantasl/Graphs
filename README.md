@@ -16,7 +16,7 @@ An example of this is:
 ```./graphs.out files/base_test_01.xml```
 
 Where ```graphs.out``` is the executable for this projected generated after compiling and ```files/base_test_01.xml``` is the path to the graph file.
-
-After running, there will be a new file inside ```files``` called ```output.txt```. This file is the log of the execution.
+dsatur
+After running, there will be a new file inside ```files``` called ```result_dsatur.txt```. This file is the log of the execution.
 
 ## This is a work in progress. There's still some optmizations to be made.
