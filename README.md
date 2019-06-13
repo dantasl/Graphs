@@ -19,4 +19,4 @@ Where ```graphs.out``` is the executable for this projected generated after comp
 dsatur
 After running, there will be a new file inside ```files``` called ```result_dsatur.txt```. This file is the log of the execution.
 
-## This is a work in progress. There's still some optmizations to be made.
+### This is a work in progress. There's still some optmizations to be made.
