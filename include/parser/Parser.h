@@ -13,6 +13,9 @@
 #ifndef GRAPHS_PARSER_H
 #define GRAPHS_PARSER_H
 
+#include <iterator>
+#include <sstream>
+#include <string>
 #include "tinyxml2.h"
 #include "../graph/Graph.h"
 
@@ -20,6 +23,7 @@ using namespace tinyxml2;
 
 namespace graphs
 {
+    const int TA = 5;
     class Parser
     {
         private:
@@ -29,13 +33,22 @@ namespace graphs
             tinyxml2::XMLDocument graph_file;
             tinyxml2::XMLNode *pRoot;
 
+            // [2] - Private Methods
+
+            std::string add_minutes_to(std::string hour, int minutes_to_add);
+            bool hour_greater_equal(std::string h1, std::string h2);
+            void treat_patient_schedule(XMLElement *patient);
+            bool errors_minimization(std::string h1, std::string h2);
+
         public:
 
-            // [2] - Public Attributes
+            // [3] - Public Attributes
 
             std::string filename;
+            std::vector<Edge*> parser_edges;
+            std::vector<Vertex*> parser_vertices;
 
-            // [3] - Public Methods
+            // [4] - Public Methods
 
             /**
              * @brief Construct a new Parser object
@@ -49,6 +62,9 @@ namespace graphs
              */
             ~Parser() = default;
 
+            /**
+             * @brief This will load the graph file and treat its content.
+             */
             void parse_graph_file();
             
             /**

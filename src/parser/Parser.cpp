@@ -34,7 +34,113 @@ void Parser::run()
     parse_graph_file();
 }
 
+std::string Parser::add_minutes_to(std::string hour, int minutes_to_add)
+{
+    // Replace "h" by a white space and splitting hours and minutes
+    std::replace(hour.begin(), hour.end(), 'h', ' ');
+    std::istringstream iss(hour);
+    int temp;
+    std::vector<int> hours;
+    while (iss >> temp)
+        hours.push_back(temp);       
+
+    // Adding the minutes
+    hours[1] += minutes_to_add;
+
+    // If minutes are bigger than 59, we have to increment the hour
+    if (hours[1] > 59)
+    {
+        if ( (hours[0] + 1) > 23 ) hours[0] = 0;
+        else
+        {
+            hours[0] += 1;
+            hours[1] -= 60;
+        }
+    }
+
+    // Composing resulting string
+    std::string result = "";
+    if (hours[0] < 10) result += "0" + std::to_string(hours[0]);
+    else result += std::to_string(hours[0]);
+
+    if (hours[1] < 10) result += "h0" + std::to_string(hours[1]);
+    else result += "h" + std::to_string(hours[1]);
+
+    return result;
+}
+
+bool Parser::hour_greater_equal(std::string h1, std::string h2)
+{
+    // Replace "h" by a white space and splitting hours and minutes
+    std::replace(h1.begin(), h1.end(), 'h', ' ');
+    std::replace(h2.begin(), h2.end(), 'h', ' ');
+    
+    int temp;
+    std::istringstream stream(h1);
+    std::istringstream stream_two(h2);
+    std::vector<int> hours_1;
+    std::vector<int> hours_2;
+    
+    while (stream >> temp) hours_1.push_back(temp);
+    while (stream_two >> temp) hours_2.push_back(temp);
+
+    // Comparing hours
+    if (hours_1[0] > hours_2[0])
+        return true;
+    else if (hours_1[0] == hours_2[0])
+        return hours_1[1] >= hours_2[1];
+    else
+        return false;
+}
+
+bool Parser::errors_minimization(std::string h1, std::string h2)
+{
+    std::string min_hour, max_hour;
+    // We need to find the minimum hour between h1 and h2
+    if (hour_greater_equal(h1, h2))
+    {
+        max_hour = h1;
+        min_hour = h2;
+    }
+    else
+    {
+        max_hour = h2;
+        min_hour = h1;
+    }    
+    min_hour = add_minutes_to(min_hour, TA);
+    return hour_greater_equal(min_hour, max_hour);
+}
+
+void Parser::treat_patient_schedule(XMLElement *patient)
+{
+    XMLElement *schedule = patient->FirstChildElement("schedule");
+    std::string schedule_list = schedule->Attribute("list");
+
+    // Splitting the list of schedules
+    std::istringstream iss( schedule_list );
+    std::set<std::string> schedules_split(
+        std::istream_iterator<std::string>{iss},
+        std::istream_iterator<std::string>()
+    );
+
+    // Comparing if any of the schedules of this patient share no conflicts
+    for (auto i = schedules_split.begin(); i != schedules_split.end(); ++i)
+        for (auto j = schedules_split.begin(); j != schedules_split.end(); ++j)
+            if (i != j)
+                if (errors_minimization(*i, *j))
+                {
+                    std::cout << "Conflict! Between " << *i << " and " << *j << std::endl;
+                }
+}
+
 void Parser::parse_graph_file()
 {
-    
-}
+    // [1]  Iterating over all patients
+
+    for ( auto patient = pRoot->FirstChildElement("patient");
+          patient != nullptr;
+          patient = patient->NextSiblingElement() )
+    {
+        treat_patient_schedule(patient);                                
+    }
+}    

@@ -1,8 +1,8 @@
 <graph>
-    <paciente id="1">
-        <horarios list="10 11 12"/>
-    </paciente>
-    <paciente id="2">
-        <horarios list="7 8 9"/>
-    </paciente>
+    <patient id="1">
+        <schedule list="10h00 10h04 11h00 12h00"/>
+    </patient>
+    <patient id="2">
+        <schedule list="07h00 08h00 09h00"/>
+    </patient>
 </graph>
