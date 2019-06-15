@@ -22,7 +22,7 @@ using namespace tinyxml2;
 
 namespace graphs
 {
-    const int PATIENTS_NUMBER = 100;
+    const int PATIENTS_NUMBER = 100000;
     const int MAX_SCHEDULES = 10;
     
     void generate_test_case()
@@ -44,13 +44,13 @@ namespace graphs
         int n_schedules, n_hour, n_minute;
         std::string str_hour, str_minute;
         std::string sch_list;
-        for (auto patient_id(1u); patient_id <= PATIENTS_NUMBER; ++patient_id)
+        for (int patient_id(1); patient_id <= PATIENTS_NUMBER; ++patient_id)
         {
             pPatient = test_case.NewElement("patient");
             pPatient->SetAttribute("id", std::to_string(patient_id).c_str());
             n_schedules = schedules(generator);
             sch_list = "";
-            for (auto schedules_patient(0u); schedules_patient < n_schedules; ++schedules_patient)
+            for (int schedules_patient(0); schedules_patient < n_schedules; ++schedules_patient)
             {
                 n_hour = hours(generator);
                 n_minute = minutes(generator);
