@@ -76,7 +76,8 @@ int main(int argc, char *argv[])
     log.push_back(temp);
 
     temp = std::string("TA of ") + std::to_string(TA) + " minutes. \n"
-           + "The DSATUR algorithm ran in " + std::to_string(run_time) + " milliseconds. \n";
+           + "The DSATUR algorithm ran in " + std::to_string(run_time) + " milliseconds. \n"
+           + "Graph colored with " + std::to_string(graph.dsatur_chromatic()) + " colors. \n";
     std::cout << temp << std::endl;
     log.push_back(temp);
     
