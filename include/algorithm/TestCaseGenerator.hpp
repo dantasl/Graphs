@@ -22,10 +22,10 @@ using namespace tinyxml2;
 
 namespace graphs
 {
-    const int PATIENTS_NUMBER = 100000;
+    const int PATIENTS_NUMBER = 1000;
     const int MAX_SCHEDULES = 10;
     
-    void generate_test_case()
+    void generate_test_case(std::string filename)
     {
         // Create the test case file with a root node
         XMLDocument test_case;
@@ -69,7 +69,7 @@ namespace graphs
             pPatient->InsertEndChild(pSchedule);
             pRoot->InsertEndChild(pPatient);
         }
-        test_case.SaveFile("files/random_test_case.xml");
+        test_case.SaveFile(filename.c_str());
     }
 }
 
